@@ -1,5 +1,5 @@
 ## Table of contents
-* [Hangman](#Hangman)
+* [Hangman](#hangman)
 * [Setup](#setup)
 * [Technologies](#technologies)
 * [Status](#status)
@@ -22,7 +22,7 @@ Open the command prompt in the created directory and run this command:
 
     git clone https://github.com/zaskul/Hangman
 
-Change current directory to the cloned one using:  
+Change current directory to the cloned one using:
     cd Hangman
 
 To run the app, use the following command:
