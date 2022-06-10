@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -109,8 +110,10 @@ public class Hangman extends JFrame {
         ImgPanel.remove(2);
         refresh(ImgPanel);
         clearButtonPanels();
+        createScoreboardFile();
         KeywordPanel.remove(0);
         try{
+            Scoreboard.removeAll();
             GameStatusLabel.removeAll();
             PlayAgainButtonPanel.removeAll();
         }
@@ -245,6 +248,53 @@ public class Hangman extends JFrame {
         catch (IOException err){
             System.out.println(err);
         }
+    }
+
+    public void checkIfFileExistsElseCreate(String fileName) {
+        try {
+            File myObj = new File(fileName);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void readScoreFile(String fileName) {
+        try {
+            File scoreFile = new File(fileName);
+            Scanner myReader = new Scanner(scoreFile);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeScoreFile(String fileName){
+        try {
+            checkIfFileExistsElseCreate(fileName);
+            FileWriter scoreWriter = new FileWriter(fileName);
+            scoreWriter.write("Files in Java might be tricky, but it is fun enough!");
+            scoreWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void createScoreboardFile(){
+        readScoreFile("scores.txt");
+        writeScoreFile("scores.txt");
     }
 
     public Hangman(){
